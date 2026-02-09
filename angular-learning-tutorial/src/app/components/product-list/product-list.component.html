@@ -1,0 +1,27 @@
+<div class="product-list-container">
+  <div class="header-actions">
+    <h2>Danh sách sản phẩm</h2>
+    <a routerLink="/add-product" class="add-btn">Thêm sản phẩm mới</a>
+  </div>
+
+  <div *ngIf="products$ | async as products; else loading" class="product-grid">
+
+    <!--
+      Sử dụng component con <app-product-item>.
+      [product]="product": Property Binding, truyền biến "product" từ vòng lặp vào @Input() của con.
+      (addToCart)="onBuy($event)": Event Binding, lắng nghe sự kiện "addToCart" từ @Output() của con.
+      $event: Biến đặc biệt chứa dữ liệu được emit từ con.
+    -->
+    <app-product-item
+      *ngFor="let product of products"
+      [product]="product"
+      (addToCart)="onBuy($event)">
+    </app-product-item>
+
+  </div>
+
+  <ng-template #loading>
+    <p>Đang tải dữ liệu sản phẩm...</p>
+  </ng-template>
+
+</div>

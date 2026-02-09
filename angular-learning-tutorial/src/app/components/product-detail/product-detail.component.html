@@ -1,0 +1,36 @@
+<div class="product-detail-container">
+
+  <!-- Sử dụng *ngIf để kiểm tra xem sản phẩm có tồn tại hay không -->
+  <div *ngIf="product; else notFound" class="product-info">
+    <h2>{{ product.name }}</h2>
+
+    <div class="detail-card">
+      <p><strong>Mã sản phẩm:</strong> {{ product.id }}</p>
+      <p><strong>Giá:</strong> ${{ product.price }}</p>
+      <p><strong>Mô tả:</strong> {{ product.description }}</p>
+
+      <p>
+        <strong>Trạng thái: </strong>
+        <span [class.in-stock]="product.inStock" [class.out-of-stock]="!product.inStock">
+          {{ product.inStock ? 'Còn hàng' : 'Hết hàng' }}
+        </span>
+      </p>
+
+      <button [disabled]="!product.inStock" class="buy-btn">
+        {{ product.inStock ? 'Thêm vào giỏ' : 'Hết hàng' }}
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Template hiển thị khi không tìm thấy sản phẩm -->
+  <ng-template #notFound>
+    <div class="error-message">
+      <p>Không tìm thấy sản phẩm!</p>
+    </div>
+  </ng-template>
+
+  <!-- RouterLink: Directive tạo link điều hướng trong Angular mà không reload lại trang -->
+  <a routerLink="/" class="back-link">← Quay lại danh sách</a>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="product-item-card" [class.out-of-stock]="!product.inStock">
+  <!-- Hiển thị thông tin sản phẩm từ @Input() -->
+  <h3>
+    <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+  </h3>
+
+  <p class="description">{{ product.description }}</p>
+
+  <p class="status">
+    Trạng thái:
+    <span *ngIf="product.inStock; else outStockTemplate" class="in-stock">Còn hàng</span>
+    <ng-template #outStockTemplate>
+      <span class="out-stock">Hết hàng</span>
+    </ng-template>
+  </p>
+
+  <p class="price">Giá: ${{ product.price }}</p>
+
+  <!-- Button gọi hàm onAddToCart(), hàm này sẽ emit sự kiện lên cha -->
+  <button (click)="onAddToCart()" [disabled]="!product.inStock">
+    {{ product.inStock ? 'Thêm vào giỏ' : 'Hết hàng' }}
+  </button>
+</div>
